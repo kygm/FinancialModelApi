@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinancialAPI.Data;
 using FinancialAPI.Models;
+using System.Net;
+using System.Text.Json;
 
 namespace FinancialAPI.Controllers
 {
@@ -23,15 +25,33 @@ namespace FinancialAPI.Controllers
 
         // GET: api/Securities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Security>>> GetSecurities()
+        public async Task<ActionResult<IEnumerable<Security>>> GetAllSecurities()
         {
             return await _context.Securities.ToListAsync();
         }
 
         // GET: api/Securities/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Security>> GetSecurity(int id)
+        [HttpGet("{search}")]
+        public async Task<ActionResult<string>> GetSecurityAsync(string search)
         {
+            //Query based on passed in string
+            string QUERY_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + search + "&interval=5min&apikey=3G6Z7P7YYUSBPI4N";
+            Uri queryUri = new Uri(QUERY_URL);
+
+            using (WebClient client = new WebClient())
+            {
+                dynamic json_data = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(client.DownloadString(queryUri));
+                string ret = "";
+                foreach (var item in json_data)
+                {
+                    Console.WriteLine(item.Key);
+                    Console.WriteLine(item.Value);
+                    ret += item.Key;                            
+                }
+                return ret;
+            }
+            /*
+             * To search DB based on ID, pass in INT to search on PK.
             var security = await _context.Securities.FindAsync(id);
 
             if (security == null)
@@ -40,44 +60,16 @@ namespace FinancialAPI.Controllers
             }
 
             return security;
+            */
         }
 
-        // PUT: api/Securities/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSecurity(int id, Security security)
-        {
-            if (id != security.ID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(security).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SecurityExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/Securities
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Security>> PostSecurity(Security security)
+        public async Task<ActionResult<Security>> AddSecurity(Security security)
         {
+
             _context.Securities.Add(security);
             await _context.SaveChangesAsync();
 

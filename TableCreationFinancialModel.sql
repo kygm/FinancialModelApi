@@ -37,6 +37,8 @@ CREATE TABLE Securities (
 	SecurityName VARCHAR(255) NOT NULL,
 	SecurityTicker VARCHAR(255),
 	SecuritySector INT NOT NULL,
+	SecurityPrice DECIMAL NOT NULL,
+	SecurityDate DATETIME,
 	PRIMARY KEY (ID),
 	SectorID INT FOREIGN KEY REFERENCES Sectors(ID)
 );
