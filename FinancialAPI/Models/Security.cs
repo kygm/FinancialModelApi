@@ -10,7 +10,7 @@ namespace FinancialAPI.Models
         public int ID { get; set; }
         public string SecurityName { get; set; }
         public string SecurityTicker { get; set; }
-        public int SecuritySector { get; set; }
+        public string SecuritySector { get; set; }
         public decimal SecurityPrice { get; set; }
         public DateTime? SecurityDate { get; set; }
         public int? SectorID { get; set; }

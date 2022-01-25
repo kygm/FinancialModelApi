@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ricke\\Desktop\\C# 2\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj": {}
+    "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ricke\\Desktop\\C# 2\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj": {
+    "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ricke\\Desktop\\C# 2\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
+        "projectUniqueName": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
         "projectName": "FinancialAPI",
-        "projectPath": "C:\\Users\\ricke\\Desktop\\C# 2\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
+        "projectPath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
         "packagesPath": "C:\\Users\\ricke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ricke\\Desktop\\C# 2\\FinancialAPI\\FinancialAPI\\obj\\",
+        "outputPath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ricke\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -61,6 +65,10 @@
               "version": "[6.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "ServiceStack.Text": {
               "target": "Package",
               "version": "[6.0.0, )"
             },

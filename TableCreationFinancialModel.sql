@@ -36,7 +36,7 @@ CREATE TABLE Securities (
 	ID INT NOT NULL IDENTITY(1,1),
 	SecurityName VARCHAR(255) NOT NULL,
 	SecurityTicker VARCHAR(255),
-	SecuritySector INT NOT NULL,
+	SecuritySector VARCHAR(255) NOT NULL,
 	SecurityPrice DECIMAL NOT NULL,
 	SecurityDate DATETIME,
 	PRIMARY KEY (ID),
