@@ -33,31 +33,18 @@ namespace FinancialAPI.Controllers
             return await _context.Securities.ToListAsync();
         }
 
-        public class AlphaVantageData
-        {
-            public DateTime Timestamp { get; set; }
-            public decimal Open { get; set; }
-
-            public decimal High { get; set; }
-            public decimal Low { get; set; }
-
-            public decimal Close { get; set; }
-            public decimal Volume { get; set; }
-        }
-
         // GET: api/Securities/5
         [HttpGet("{search}")]
-        public async Task<ActionResult<List<AlphaVantageData>>> GetSecurityAsync(string search)
+        public async Task<ActionResult<List<Stock>>> GetSecurityAsync(string search)
         {
-            //Query based on passed in string
-            string url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + search + "&interval=5min&apikey=3G6Z7P7YYUSBPI4N&datatype=csv";
-            var prices = url.GetStringFromUrl().FromCsv<List<AlphaVantageData>>();
-            foreach(var pr in prices)
-            {
-                Console.WriteLine(pr.Timestamp + pr.High.ToString());
+            StockOperations stockOperations = new StockOperations();
+            var stocks = stockOperations.GetCurrentStocks(search);
 
+            foreach(var i in stocks)
+            {
+                System.Diagnostics.Debug.WriteLine("High: " + i.High + " Low: " + i.Low);
             }
-            return Ok(prices);
+            return stocks;
             /*
              * To search DB based on ID, pass in INT to search on PK.
             var security = await _context.Securities.FindAsync(id);

@@ -536,4 +536,3 @@ C:\Users\ricke\Desktop\CMSC 2240\FinancialAPI\FinancialAPI\bin\Debug\net6.0\Micr
 C:\Users\ricke\Desktop\CMSC 2240\FinancialAPI\FinancialAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\ricke\Desktop\CMSC 2240\FinancialAPI\FinancialAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 C:\Users\ricke\Desktop\CMSC 2240\FinancialAPI\FinancialAPI\bin\Debug\net6.0\ServiceStack.Text.dll
-C:\Users\ricke\Desktop\CMSC 2240\FinancialAPI\FinancialAPI\obj\Debug\net6.0\FinancialAPI.csproj.CopyComplete
