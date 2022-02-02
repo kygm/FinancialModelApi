@@ -15,6 +15,5 @@ namespace FinancialAPI.Models
         public DateTime? SecurityDate { get; set; }
         public int? SectorID { get; set; }
 
-        public virtual Sector Sector { get; set; }
     }
 }
