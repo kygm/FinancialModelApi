@@ -11,7 +11,7 @@ using System.Net;
 using System.Text.Json;
 using ServiceStack;
 using ServiceStack.Text;
-
+using System.Dynamic;
 
 namespace FinancialAPI.Controllers
 {
@@ -28,34 +28,50 @@ namespace FinancialAPI.Controllers
 
         // GET: api/Securities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Security>>> GetAllSecurities()
+        public ActionResult<JsonObject> GetAllSecurities(string query, int interval)
         {
-            return await _context.Securities.ToListAsync();
-        }
-
-        // GET: api/Securities/5
-        [HttpGet("{search}")]
-        public async Task<ActionResult<List<Stock>>> GetSecurityAsync(string search)
-        {
-            StockOperations stockOperations = new StockOperations();
-            var stocks = stockOperations.GetCurrentStocks(search);
-
-            foreach(var i in stocks)
+            ApiStore stockOperations = new ApiStore();
+            //interval enums set in ApiStore class
+            var stocks = stockOperations.GetCurrentStocks(query, interval);
+            //calculate days of movement:
+            int days;
+            if(interval == 5)
             {
+                days = 2;
+            }
+            else if(interval == 15)
+            {
+                days = 4;
+            }
+            else
+            {
+                days = 6;
+            }
+
+            //gen list of doubles:
+            var ldouble = new List<double>();
+            foreach(var s in stocks)
+            {
+                double avg = ((s.High + s.Low) / 2);
+                ldouble.Add(avg);
+            }
+            StatOperations stat = new StatOperations(ldouble, query);
+            
+            foreach (var i in stocks)
+            {
+                DateTime dt = new DateTime();
+                dt = i.Timestamp.ToLocalTime();
+                System.Diagnostics.Debug.WriteLine("Date: " + dt.ToString());
                 System.Diagnostics.Debug.WriteLine("High: " + i.High + " Low: " + i.Low);
             }
-            return stocks;
-            /*
-             * To search DB based on ID, pass in INT to search on PK.
-            var security = await _context.Securities.FindAsync(id);
-
-            if (security == null)
-            {
-                return NotFound();
-            }
-
-            return security;
-            */
+            JsonObject json = new JsonObject();
+            json.Add("Total", stocks.Count.ToString());
+            json.Add("Ticker", query);
+            double stdDev = stat.CalcuateStandardDeviation();
+            json.Add("Standard deviation over the past " + days + " days: ", stdDev.ToString());
+            string direction = (stdDev > 0) ? "Positive" : "Negative";
+            json.Add("Movement", direction);
+            return Ok(json);
         }
 
 
