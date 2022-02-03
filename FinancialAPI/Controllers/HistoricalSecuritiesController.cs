@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using FinancialAPI.Data;
 using FinancialAPI.Models;
+using Newtonsoft.Json;
+using System.Dynamic;
 
 namespace FinancialAPI.Controllers
 {
@@ -27,11 +29,31 @@ namespace FinancialAPI.Controllers
         {
             return await _context.HistoricalSecurities.ToListAsync();
         }
-
+        
         // GET: api/HistoricalSecurities/5
         [HttpGet("{id}")]
         public async Task<ActionResult<HistoricalSecurity>> GetHistoricalSecurity(int id)
         {
+
+            HttpClient client = new HttpClient();
+            dynamic obj = new ExpandoObject();
+            //top cryptos api endpoint  
+            HttpResponseMessage response = client.GetAsync("https://api.coincap.io/v2/assets").Result;
+            response.EnsureSuccessStatusCode();
+            string result = response.Content.ReadAsStringAsync().Result;
+
+
+            var expConverter = new Newtonsoft.Json.Converters.ExpandoObjectConverter();
+            obj = JsonConvert.DeserializeObject<ExpandoObject>(result, expConverter);
+
+            var json = JsonConvert.SerializeObject(obj.data);
+
+
+            List<Coin> lCoins = JsonConvert.DeserializeObject<List<Coin>>(json);
+            foreach(var l in lCoins)
+            {
+                System.Diagnostics.Debug.WriteLine(l.symbol);
+            }
             var historicalSecurity = await _context.HistoricalSecurities.FindAsync(id);
 
             if (historicalSecurity == null)

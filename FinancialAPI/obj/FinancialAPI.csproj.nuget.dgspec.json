@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj": {}
+    "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj": {
+    "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
+        "projectUniqueName": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj",
         "projectName": "FinancialAPI",
-        "projectPath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
+        "projectPath": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj",
         "packagesPath": "C:\\Users\\ricke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\obj\\",
+        "outputPath": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ricke\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -95,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
