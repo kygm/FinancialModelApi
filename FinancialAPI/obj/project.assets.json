@@ -9864,11 +9864,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj",
+      "projectUniqueName": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
       "projectName": "FinancialAPI",
-      "projectPath": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj",
+      "projectPath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
       "packagesPath": "C:\\Users\\ricke\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\obj\\",
+      "outputPath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ricke\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9952,7 +9952,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

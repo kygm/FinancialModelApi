@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9NaZbGe+9SdL/5qWxWJlm6eXJcrzPJQapri0u9BjZlcotcl6RTsjKYZRjAjPG8jP2q3IEGx7hrbTSQxne1CAWA==",
+  "dgSpecHash": "QHfwoqHzhx8X8VXZI13giAuB3udjlHzpZRjF9KZlq9xPeF/h4iFaOtA4gAatogTfGk7EobRGjJm+CF3cxhrtbw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ricke\\Source\\Repos\\FinancialModelApi\\FinancialAPI\\FinancialAPI.csproj",
+  "projectFilePath": "C:\\Users\\ricke\\Desktop\\CMSC 2240\\FinancialAPI\\FinancialAPI\\FinancialAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ricke\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ricke\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
