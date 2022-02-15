@@ -5,11 +5,11 @@ using System.Dynamic;
 
 namespace FinancialAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Commodities")]
     [ApiController]
     public class CommodotiesController : ControllerBase
     {
-        
+        [Route("GetCommodities")]
         [HttpGet]
         public ActionResult<Commodity> Get()
         {
@@ -46,6 +46,22 @@ namespace FinancialAPI.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+        [HttpGet]
+        [Route("GetMilkPrice")]
+        public ActionResult<Commodity> GetMilkPrice()
+        {
+            ApiStore api = new ApiStore();
+            var milkPrices = new List<Commodity>();
+            try
+            {
+                milkPrices = api.GetMilkPrices();
+                return Ok(milkPrices);
+            }
+            catch
+            {
+                return BadRequest(null);
             }
         }
     }

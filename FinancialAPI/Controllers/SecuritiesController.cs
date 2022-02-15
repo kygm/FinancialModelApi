@@ -31,8 +31,15 @@ namespace FinancialAPI.Controllers
         public ActionResult<JsonObject> GetAllSecurities(string query, int interval)
         {
             ApiStore stockOperations = new ApiStore();
+            List<Stock> stocks = new List<Stock>();
             //interval enums set in ApiStore class
-            var stocks = stockOperations.GetCurrentStocks(query, interval);
+            stocks = stockOperations.GetCurrentStocks(query, interval);
+            if(stocks.IsNullOrEmpty())
+            {
+                JsonObject ret = new JsonObject();
+                ret.Add("Message", "No stock found");
+                return BadRequest(ret);
+            }
             //calculate days of movement:
             int days;
             if(interval == 5)
@@ -64,13 +71,22 @@ namespace FinancialAPI.Controllers
                 System.Diagnostics.Debug.WriteLine("Date: " + dt.ToString());
                 System.Diagnostics.Debug.WriteLine("High: " + i.High + " Low: " + i.Low);
             }
+            var arrDouble = ldouble.ToArray();
             JsonObject json = new JsonObject();
             json.Add("Total", stocks.Count.ToString());
-            json.Add("Ticker", query);
-            double stdDev = stat.CalcuateStandardDeviation();
-            json.Add("Standard deviation over the past " + days + " days: ", stdDev.ToString());
-            string direction = (stdDev > 0) ? "Positive" : "Negative";
+            json.Add("Ticker", query);      
+            StatOperations sop = new StatOperations(ldouble, query);
+            Stat st = sop.CalcuateStandardDeviation(); 
+            json.Add("Mean price over the past "   + days + " days: ", st.Mean.ToString());
+            json.Add("High", ldouble.Max().ToString());
+            json.Add("Low", ldouble.Min().ToString());
+            json.Add("Standard Deviation", st.StandardDeviation.ToString());
+            string direction = ((arrDouble[0] - arrDouble[arrDouble.Length -1]) < 0) ? "Positive" : "Negative";
             json.Add("Movement", direction);
+
+            //Probabilities section
+            double probability = (((st.StandardDeviation / st.Mean) * 100) * 2);
+            json.Add("Probability of price moving +- 10%", String.Format("{0:0.##}", probability)+"%");
             return Ok(json);
         }
 

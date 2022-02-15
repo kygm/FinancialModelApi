@@ -25,6 +25,49 @@ namespace FinancialAPI
     {
         public List<Stock> Stocks { get; set; }
 
+        public List<Commodity> Commodity {  get; set; }
+
+        class NDQRetObj
+        {
+            object dataset;
+            string frequency;
+            string description;
+            DateTime start_date;
+            DateTime end_date;
+            string fequency;
+            List<HistoricalMilkPrice> data;
+        }
+        public List<Commodity> GetMilkPrices()
+        {
+            //fetch key from encryped source??? or auth controller..?
+            string key = "ayrizEM55fccZxKeAWae";
+            HttpClient client = new HttpClient();
+            string? result;
+            try
+            {
+                HttpResponseMessage response = client.GetAsync("https://data.nasdaq.com/api/v3/datasets/ODA/PMILK_USD?api_key="+key).Result;
+                response.EnsureSuccessStatusCode();
+                result = response.Content.ReadAsStringAsync().Result;
+
+                //attempt deserialization
+                try
+                {
+                    
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return null;
+            }
+
+
+            return new List<Commodity>();
+        }
         public List<Stock> GetCurrentStocks(string symbol, int interval)
         {
             IntervalEnums dur = new IntervalEnums();
@@ -43,9 +86,24 @@ namespace FinancialAPI
 
             //NOTE All durations result in 100 stock objects
             //As duration increases, amount of days increases proportionally
+
+            //reading from file
+            string key = "";
             try
             {
-                string url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval="+interval+"min&apikey=3G6Z7P7YYUSBPI4N&datatype=csv";
+                key = System.IO.File.ReadAllText(@"C:\Users\ricke\Desktop\avKey.txt");
+            }
+            catch(Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+            if(key.IsNullOrEmpty())
+            {
+                return null;
+            }    
+            try
+            {
+                string url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval="+interval+"min&apikey=" + key +"&datatype=csv";
                 var prices = url.GetStringFromUrl().FromCsv<List<Stock>>();
                 return prices;
             }

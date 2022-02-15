@@ -19,28 +19,10 @@ namespace FinancialAPI.Data
         {
         }
 
-        public virtual DbSet<HistoricalSecurity> HistoricalSecurities { get; set; }
         public virtual DbSet<Security> Securities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HistoricalSecurity>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("HistoricalSecurity");
-
-                entity.Property(e => e.DateCalculated).HasColumnType("datetime");
-
-                entity.Property(e => e.ID).ValueGeneratedOnAdd();
-
-                entity.Property(e => e.SecurityMovement).HasColumnType("decimal(18, 0)");
-
-                entity.HasOne(d => d.Security)
-                    .WithMany()
-                    .HasForeignKey(d => d.SecurityID)
-                    .HasConstraintName("FK__Historica__Secur__286302EC");
-            });
 
             modelBuilder.Entity<Security>(entity =>
             {

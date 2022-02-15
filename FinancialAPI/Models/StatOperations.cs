@@ -1,4 +1,6 @@
-﻿namespace FinancialAPI
+﻿using FinancialAPI.Models;
+
+namespace FinancialAPI
 {
     public class StatOperations
     {
@@ -12,11 +14,16 @@
             this.SecurityName = sname;
         }
 
-        public double CalcuateStandardDeviation()
+
+        public Stat CalcuateStandardDeviation()
         {
             double average = Values.Average();
             double sum = Values.Sum(d => Math.Pow(d - average, 2));
-            return Math.Sqrt((sum) / (Values.Count() - 1));
+            Stat stats= new Stat();
+            stats.Mean = average;
+            stats.StandardDeviation = Math.Sqrt((sum) / (Values.Count() - 1));
+            return stats;
+            
         }
 
         public double CalculateConfidenceInterval()
@@ -24,8 +31,6 @@
             throw new NotImplementedException();
            
         }
-
-
 
     }
 }
