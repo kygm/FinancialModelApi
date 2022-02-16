@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FinancialAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Dynamic;
@@ -50,10 +51,10 @@ namespace FinancialAPI.Controllers
         }
         [HttpGet]
         [Route("GetMilkPrice")]
-        public ActionResult<Commodity> GetMilkPrice()
+        public ActionResult<NDQRetObj> GetMilkPrice()
         {
             ApiStore api = new ApiStore();
-            var milkPrices = new List<Commodity>();
+            var milkPrices = new NDQRetObj();
             try
             {
                 milkPrices = api.GetMilkPrices();

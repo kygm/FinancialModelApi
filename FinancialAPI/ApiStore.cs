@@ -11,6 +11,7 @@ using System.Net;
 using System.Text.Json;
 using ServiceStack;
 using ServiceStack.Text;
+using Newtonsoft.Json;
 
 
 namespace FinancialAPI
@@ -27,32 +28,53 @@ namespace FinancialAPI
 
         public List<Commodity> Commodity {  get; set; }
 
-        class NDQRetObj
-        {
-            object dataset;
-            string frequency;
-            string description;
-            DateTime start_date;
-            DateTime end_date;
-            string fequency;
-            List<HistoricalMilkPrice> data;
-        }
-        public List<Commodity> GetMilkPrices()
+        public NDQRetObj GetMilkPrices()
         {
             //fetch key from encryped source??? or auth controller..?
             string key = "ayrizEM55fccZxKeAWae";
             HttpClient client = new HttpClient();
             string? result;
+            var returnObj = new NDQRetObj();
+            string uri = "https://data.nasdaq.com/api/v3/datasets/ODA/PMILK_USD.json?api_key=" + key;
             try
             {
-                HttpResponseMessage response = client.GetAsync("https://data.nasdaq.com/api/v3/datasets/ODA/PMILK_USD?api_key="+key).Result;
+                HttpResponseMessage response = client.GetAsync(uri).Result;
                 response.EnsureSuccessStatusCode();
                 result = response.Content.ReadAsStringAsync().Result;
 
                 //attempt deserialization
                 try
                 {
-                    
+                    returnObj = JsonConvert.DeserializeObject<NDQRetObj>(result);
+
+                    System.Diagnostics.Debug.WriteLine(returnObj.dataset.data);
+
+                    var objs = GenKvp(returnObj.dataset.data);
+
+                    List<object> GenKvp(object data)
+                    {
+                        var json = JsonConvert.SerializeObject(data);
+
+
+                        try
+                        {
+                            var j = JsonConvert.DeserializeObject<List<object>>(json);
+
+                            System.Diagnostics.Debug.WriteLine(j);
+
+                            return j;
+                        }
+                        catch 
+                        {
+                            return null;
+                        }
+         
+                    }
+                    foreach(var i in objs)
+                    {
+                        System.Diagnostics.Debug.WriteLine(i);
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -66,7 +88,7 @@ namespace FinancialAPI
             }
 
 
-            return new List<Commodity>();
+            return returnObj;
         }
         public List<Stock> GetCurrentStocks(string symbol, int interval)
         {

@@ -3,7 +3,7 @@
     public class HistoricalMilkPrice
     {
         public double Price { get; set; }
-        public DateTime Timestamp { get; set; }
+        public string Timestamp { get; set; }
 
     }
 }
