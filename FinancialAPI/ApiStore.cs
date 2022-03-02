@@ -28,12 +28,14 @@ namespace FinancialAPI
 
         public List<Commodity> Commodity {  get; set; }
 
-        public NDQRetObj GetMilkPrices()
+        public Dictionary<string,double> GetMilkPrices()
         {
             //fetch key from encryped source??? or auth controller..?
+
             string key = "ayrizEM55fccZxKeAWae";
             HttpClient client = new HttpClient();
             string? result;
+            var values = new Dictionary<string, double>();
             var returnObj = new NDQRetObj();
             string uri = "https://data.nasdaq.com/api/v3/datasets/ODA/PMILK_USD.json?api_key=" + key;
             try
@@ -60,6 +62,7 @@ namespace FinancialAPI
                         {
                             var j = JsonConvert.DeserializeObject<List<object>>(json);
 
+                            string a = JsonConvert.SerializeObject(j);
                             System.Diagnostics.Debug.WriteLine(j);
 
                             return j;
@@ -70,9 +73,24 @@ namespace FinancialAPI
                         }
          
                     }
+                    
                     foreach(var i in objs)
                     {
                         System.Diagnostics.Debug.WriteLine(i);
+                        string dump = JsonConvert.SerializeObject(i);
+                        dump = dump.Replace("[", "{");
+                        dump = dump.Replace("]", "}");
+                        dump = dump.Replace(@"\", "");
+                        //var doge = JsonConvert.DeserializeObject<List<KeyValuePair<string,double>>>(dump);
+
+                        string date = dump.Split('"', '"')[1];
+                        double price = dump.Split(',', '}')[1].ToDouble();
+                        values.Add(date, price);
+                        //string price = dump.Split();
+
+                        //System.Diagnostics.Debug.WriteLine(temp);
+                        //"{\r\n  \"2021-11-30\",\r\n  20.96147019802927\r\n}"
+
                     }
 
                 }
@@ -88,7 +106,7 @@ namespace FinancialAPI
             }
 
 
-            return returnObj;
+            return values;
         }
         public List<Stock> GetCurrentStocks(string symbol, int interval)
         {
@@ -138,3 +156,4 @@ namespace FinancialAPI
         }
     }
 }
+

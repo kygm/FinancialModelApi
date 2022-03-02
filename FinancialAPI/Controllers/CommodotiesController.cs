@@ -51,10 +51,10 @@ namespace FinancialAPI.Controllers
         }
         [HttpGet]
         [Route("GetMilkPrice")]
-        public ActionResult<NDQRetObj> GetMilkPrice()
+        public ActionResult<Dictionary<string,double>> GetMilkPrice()
         {
             ApiStore api = new ApiStore();
-            var milkPrices = new NDQRetObj();
+            var milkPrices = new Dictionary<string,double>();
             try
             {
                 milkPrices = api.GetMilkPrices();
