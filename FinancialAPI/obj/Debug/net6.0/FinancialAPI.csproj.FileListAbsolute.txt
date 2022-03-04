@@ -808,3 +808,4 @@ C:\Users\ricke\Source\Repos\FinancialModelApi\FinancialAPI\obj\Debug\net6.0\Fina
 C:\Users\ricke\Source\Repos\FinancialModelApi\FinancialAPI\obj\Debug\net6.0\ref\FinancialAPI.dll
 C:\Users\ricke\Source\Repos\FinancialModelApi\FinancialAPI\obj\Debug\net6.0\FinancialAPI.pdb
 C:\Users\ricke\Source\Repos\FinancialModelApi\FinancialAPI\obj\Debug\net6.0\FinancialAPI.genruntimeconfig.cache
+C:\Users\ricke\Desktop\CMSC 2240\FinancialAPI\FinancialAPI\bin\Debug\net6.0\HtmlAgilityPack.dll

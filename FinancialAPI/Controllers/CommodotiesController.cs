@@ -51,14 +51,23 @@ namespace FinancialAPI.Controllers
         }
         [HttpGet]
         [Route("GetMilkPrice")]
-        public ActionResult<Dictionary<string,double>> GetMilkPrice()
+        public ActionResult<Dictionary<DateTime,double>> GetMilkPrice()
         {
             ApiStore api = new ApiStore();
-            var milkPrices = new Dictionary<string,double>();
+            var apiPrices = new Dictionary<string,double>();
+            var milkPrices = new Dictionary<DateTime, double>();
             try
             {
-                milkPrices = api.GetMilkPrices();
+                apiPrices = api.GetMilkPrices();
+
+                foreach(var milk in apiPrices)
+                {
+                    milkPrices.Add(DateTime.Parse(milk.Key), milk.Value);
+                }
+
+
                 return Ok(milkPrices);
+
             }
             catch
             {

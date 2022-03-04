@@ -12,6 +12,7 @@ using System.Text.Json;
 using ServiceStack;
 using ServiceStack.Text;
 using Newtonsoft.Json;
+using HtmlAgilityPack;
 
 
 namespace FinancialAPI
@@ -67,31 +68,32 @@ namespace FinancialAPI
 
                             return j;
                         }
-                        catch 
+                        catch (Exception ex)
                         {
+                            System.Diagnostics.Debug.WriteLine(ex.ToString());
                             return null;
                         }
          
                     }
-                    
-                    foreach(var i in objs)
+                    //sto. most recent price first!
+                    var html = new HtmlWeb();
+                    var document = html.Load("https://www.investing.com/commodities/class-iii-milk-futures-historical-data");
+                    var node = document.DocumentNode.SelectNodes("//*[@id=\"quotes_summary_secondary_data\"]/div/ul/li[1]/span[2]");
+                    values.Add(DateTime.Now.ToString("d"), node[0].InnerText.ToDouble());
+                    foreach (var i in objs)
                     {
                         System.Diagnostics.Debug.WriteLine(i);
                         string dump = JsonConvert.SerializeObject(i);
                         dump = dump.Replace("[", "{");
                         dump = dump.Replace("]", "}");
                         dump = dump.Replace(@"\", "");
-                        //var doge = JsonConvert.DeserializeObject<List<KeyValuePair<string,double>>>(dump);
 
                         string date = dump.Split('"', '"')[1];
                         double price = dump.Split(',', '}')[1].ToDouble();
                         values.Add(date, price);
-                        //string price = dump.Split();
-
-                        //System.Diagnostics.Debug.WriteLine(temp);
-                        //"{\r\n  \"2021-11-30\",\r\n  20.96147019802927\r\n}"
 
                     }
+                    
 
                 }
                 catch (Exception ex)
